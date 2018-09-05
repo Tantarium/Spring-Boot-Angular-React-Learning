@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>backend</module>
-        <!--<module>frontend</module>-->
+        <module>frontend</module>
 	</modules>
 	<name>show_program</name>
 	<description>Show Program</description>
@@ -58,15 +58,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 
 </project>
