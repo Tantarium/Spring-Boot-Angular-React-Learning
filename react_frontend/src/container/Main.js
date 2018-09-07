@@ -23,13 +23,6 @@ class Main extends Component {
     getJudges() {
         axios.get("http://localhost:8080/judges").then(res => {
             console.log(res.data);
-            let thing = '';
-            for (let i = 0; i < res.data.length; i++) {
-                thing = thing + "First Name: " + res.data[i].firstName + " --- ";
-            }
-            // this.setState({judgeJson: "id: " + res.data[0].id + " --- first name: " + res.data[0].firstName
-            //         + " --- last name: " + res.data[0].lastName + " --- number: " + res.data[0].number});
-            this.setState({judgeJson: thing})
         }, err => {
             console.log("Error: " + err);
         })
@@ -50,7 +43,7 @@ class Main extends Component {
 
     deleteJudge(number) {
         axios.delete("http://localhost:8080/judges/" + number).then(res => {
-            console.log("Deleted!");
+            alert("Judge " + this.state.firstName + " " + this.state.lastName + " has been deleted.");
             this.setState({
                 id: '',
                 firstName: '',
@@ -66,19 +59,57 @@ class Main extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Judge Actions</h1>
                 </header>
-                <p className="App-intro">
+                <div className="App-intro">
                     <span>
-                        <input id="number" onChange={(evt) => { this.setState({idToGrab: evt.target.value}) }} />
-                        <button class="btn btn-primary" onClick={() => this.getJudge(this.state.idToGrab)}>Get Judge</button> <br/>
-                        {/*<span>{this.state.judgeJson}</span>*/}
-                        {/*<input defaultValue={this.state.id} /> <br/>*/}
-                        First Name: <input defaultValue={this.state.firstName} /> <br/>
-                        Last Name: <input defaultValue={this.state.lastName} /> <br/>
-                        Number: <input defaultValue={this.state.number} /> <br/>
-                        {/*<button>Update Judge</button> <br/>*/}
-                        <button onClick={() => this.deleteJudge(this.state.idToGrab)}>Delete Judge</button>
+                        <br/>
+
+                        <div className="form-inline">
+                            <div className="col-sm-2">
+                                <label><b>Enter Judge ID: </b></label>
+                            </div>
+                            <div className="col-sm-2">
+                                <input className="form-control" onChange={(evt) => { this.setState({idToGrab: evt.target.value}) }} />
+                            </div>
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-primary" onClick={() => this.getJudge(this.state.idToGrab)}>Get Judge Details</button>
+                            </div>
+                        </div>
+
+                        <br/><br/><br/><br/>
+
+                        <div className="form-inline">
+                            <div className="col-sm-2">
+                                <label><b>First Name: </b></label>
+                            </div>
+                            <div className="col-sm-2">
+                                <input className="form-control" defaultValue={this.state.firstName} />
+                            </div>
+                        </div>
+
+                        <div className="form-inline">
+                            <div className="col-sm-2">
+                                <label><b>Last Name: </b></label>
+                            </div>
+                            <div className="col-sm-2">
+                                <input className="form-control" defaultValue={this.state.lastName} />
+                            </div>
+                        </div>
+
+                        <div className="form-inline">
+                            <div className="col-sm-2">
+                                <label><b>Number: </b></label>
+                            </div>
+                            <div className="col-sm-2">
+                                <input className="form-control" defaultValue={this.state.number} />
+                            </div>
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-danger" onClick={() => this.deleteJudge(this.state.idToGrab)}>Delete Judge</button>
+                            </div>
+                        </div>
                     </span>
-                </p>
+                </div>
             </div>
         );
     }
