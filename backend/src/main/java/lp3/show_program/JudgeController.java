@@ -16,11 +16,13 @@ public class JudgeController {
     private JudgeRepository judgeRepository;
 
     @GetMapping("/judges")
-    public List<Judge> retrieveAllJudges() {    //Judge judge(@RequestParam(value="firstName", defaultValue="Terry") String firstName) {
-        return judgeRepository.findAll(); //return new Judge(counter.incrementAndGet(), String.format(template, firstName));
+    @CrossOrigin(origins = "*")
+    public List<Judge> retrieveAllJudges() {
+        return judgeRepository.findAll();
     }
 
     @GetMapping("/judges/{id}")
+    @CrossOrigin(origins = "*")
     public Judge retrieveJudge(@PathVariable long id) throws JudgeNotFoundException {
         Optional<Judge> judge = judgeRepository.findById(id);
 
@@ -30,6 +32,7 @@ public class JudgeController {
     }
 
     @DeleteMapping("/judges/{id}")
+    @CrossOrigin(origins = "*")
     public void deleteJudge(@PathVariable long id) {
         judgeRepository.deleteById(id);
     }
