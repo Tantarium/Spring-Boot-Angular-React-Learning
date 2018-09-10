@@ -48,6 +48,7 @@ public class JudgeController {
     }
 
     @PutMapping("/judges/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Object> updateJudge(@RequestBody Judge judge, @PathVariable long id) {
         Optional<Judge> judgeOptional = judgeRepository.findById(id);
 

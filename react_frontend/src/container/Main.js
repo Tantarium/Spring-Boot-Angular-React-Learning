@@ -18,6 +18,8 @@ class Main extends Component {
         this.getJudges = this.getJudges.bind(this);
         this.getJudge = this.getJudge.bind(this);
         this.deleteJudge = this.deleteJudge.bind(this);
+        this.addJudge = this.addJudge.bind(this);
+        this.updateJudge = this.updateJudge.bind(this);
     }
 
     getJudges() {
@@ -63,6 +65,23 @@ class Main extends Component {
         })
     }
 
+    updateJudge(id, firstName, lastName, number) {
+        axios.put('http://localhost:8080/judges/' + id, {
+            firstName: firstName,
+            lastName: lastName,
+            number: number
+        }).then(res => {
+            alert("Judge " + firstName + " " + lastName + " has been updated.");
+        })
+    }
+
+    grabState() {
+        console.log("ID: " + this.state.id);
+        console.log("First Name: " + this.state.firstName);
+        console.log("Last Name: " + this.state.lastName);
+        console.log("Number: " + this.state.number);
+    }
+
     render() {
         return (
             <div className="Main">
@@ -83,6 +102,9 @@ class Main extends Component {
                             <div className="col-sm-1"></div>
                             <div className="col-sm-2">
                                 <button className="btn btn-primary" onClick={() => this.getJudge(this.state.idToGrab)}>Get Judge Details</button>
+                            </div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-primary" onClick={() => this.grabState()}>Grab State</button>
                             </div>
                         </div>
 
@@ -107,6 +129,10 @@ class Main extends Component {
                             </div>
                             <div className="col-sm-2">
                                 <input className="form-control" defaultValue={this.state.lastName} onChange={(evt) => { this.setState({lastName: evt.target.value}) }} />
+                            </div>
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-warning" onClick={() => this.updateJudge(this.state.idToGrab, this.state.firstName, this.state.lastName, this.state.number)}>Update Judge</button>
                             </div>
                         </div>
 
