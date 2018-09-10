@@ -53,6 +53,16 @@ class Main extends Component {
         })
     }
 
+    addJudge(firstName, lastName, number) {
+        axios.post('http://localhost:8080/judges', {
+            firstName: firstName,
+            lastName: lastName,
+            number: number
+        }).then(res => {
+            alert("Judge " + firstName + " " + lastName + " has been added.");
+        })
+    }
+
     render() {
         return (
             <div className="Main">
@@ -83,7 +93,11 @@ class Main extends Component {
                                 <label><b>First Name: </b></label>
                             </div>
                             <div className="col-sm-2">
-                                <input className="form-control" defaultValue={this.state.firstName} />
+                                <input className="form-control" defaultValue={this.state.firstName} onChange={(evt) => { this.setState({firstName: evt.target.value}) }} />
+                            </div>
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-success" onClick={() => this.addJudge(this.state.firstName, this.state.lastName, this.state.number)}>Add Judge</button>
                             </div>
                         </div>
 
@@ -92,7 +106,7 @@ class Main extends Component {
                                 <label><b>Last Name: </b></label>
                             </div>
                             <div className="col-sm-2">
-                                <input className="form-control" defaultValue={this.state.lastName} />
+                                <input className="form-control" defaultValue={this.state.lastName} onChange={(evt) => { this.setState({lastName: evt.target.value}) }} />
                             </div>
                         </div>
 
@@ -101,7 +115,7 @@ class Main extends Component {
                                 <label><b>Number: </b></label>
                             </div>
                             <div className="col-sm-2">
-                                <input className="form-control" defaultValue={this.state.number} />
+                                <input className="form-control" defaultValue={this.state.number} onChange={(evt) => { this.setState({number: evt.target.value}) }} />
                             </div>
                             <div className="col-sm-1"></div>
                             <div className="col-sm-2">

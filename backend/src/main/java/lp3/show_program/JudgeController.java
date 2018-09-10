@@ -38,6 +38,7 @@ public class JudgeController {
     }
 
     @PostMapping("/judges")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Object> createJudge(@RequestBody Judge judge) {
         Judge savedJudge = judgeRepository.save(judge);
 
