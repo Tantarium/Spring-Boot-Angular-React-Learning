@@ -22,13 +22,23 @@ class Main extends Component {
         this.updateJudge = this.updateJudge.bind(this);
     }
 
-    getJudges() {
+    getJudges = () => {
+        let table = '';
         axios.get("http://localhost:8080/judges").then(res => {
-            console.log(res.data);
+            for (let i = 0; i < res.data.length; i++) {
+                if (i === res.data.length - 1) {
+                    table = table + res.data[i].firstName + "(" + res.data[i].id + ")";
+                } else {
+                    table = table + res.data[i].firstName + "(" + res.data[i].id + "), ";
+                }
+            }
+
+            this.setState({judgeJson: table});
+
         }, err => {
             console.log("Error: " + err);
-        })
-    }
+        });
+    };
 
     getJudge(number) {
         axios.get("http://localhost:8080/judges/" + number).then(res => {
@@ -94,6 +104,21 @@ class Main extends Component {
 
                         <div className="form-inline">
                             <div className="col-sm-2">
+                                <label><b>Judges: </b></label>
+                            </div>
+                            <div className="col-sm-7">
+                                <input readOnly className="form-control-plaintext" defaultValue={this.state.judgeJson} />
+                            </div>
+                            <div className="col-sm-1"></div>
+                            <div className="col-sm-2">
+                                <button className="btn btn-success" onClick={() => this.getJudges()}>Get Judges</button>
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <div className="form-inline">
+                            <div className="col-sm-2">
                                 <label><b>Enter Judge ID: </b></label>
                             </div>
                             <div className="col-sm-2">
@@ -103,9 +128,9 @@ class Main extends Component {
                             <div className="col-sm-2">
                                 <button className="btn btn-primary" onClick={() => this.getJudge(this.state.idToGrab)}>Get Judge Details</button>
                             </div>
-                            <div className="col-sm-2">
-                                <button className="btn btn-primary" onClick={() => this.grabState()}>Grab State</button>
-                            </div>
+                            {/*<div className="col-sm-2">*/}
+                                {/*<button className="btn btn-primary" onClick={() => this.grabState()}>Grab State</button>*/}
+                            {/*</div>*/}
                         </div>
 
                         <br/><br/><br/><br/>
