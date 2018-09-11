@@ -29,7 +29,7 @@ class Main extends Component {
                 if (i === res.data.length - 1) {
                     table = table + res.data[i].firstName + " " + res.data[i].lastName + "(" + res.data[i].id + ")";
                 } else {
-                    table = table + res.data[i].firstName + " " + res.data[i].lastName + "(" + res.data[i].id + "), ";
+                    table = table + res.data[i].firstName + " " + res.data[i].lastName + "(" + res.data[i].id + "), \\n";
                 }
             }
 
@@ -102,7 +102,9 @@ class Main extends Component {
                                 <label><b>Judges: </b></label>
                             </div>
                             <div className="col-sm-7">
-                                <input readOnly className="form-control-plaintext" defaultValue={this.state.judgeJson} />
+                                {this.state.judgeJson.split('\\n').map((item, key) => {
+                                    return <span key={key}>{item}<br/></span>
+                                })}
                             </div>
                             <div className="col-sm-1"></div>
                             <div className="col-sm-2">
