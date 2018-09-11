@@ -27,9 +27,9 @@ class Main extends Component {
         axios.get("http://localhost:8080/judges").then(res => {
             for (let i = 0; i < res.data.length; i++) {
                 if (i === res.data.length - 1) {
-                    table = table + res.data[i].firstName + "(" + res.data[i].id + ")";
+                    table = table + res.data[i].firstName + " " + res.data[i].lastName + "(" + res.data[i].id + ")";
                 } else {
-                    table = table + res.data[i].firstName + "(" + res.data[i].id + "), ";
+                    table = table + res.data[i].firstName + " " + res.data[i].lastName + "(" + res.data[i].id + "), ";
                 }
             }
 
@@ -54,7 +54,7 @@ class Main extends Component {
     }
 
     deleteJudge(number) {
-        axios.delete("http://localhost:8080/judges/" + number).then(res => {
+        axios.delete("http://localhost:8080/judges/" + number).then(() => {
             alert("Judge " + this.state.firstName + " " + this.state.lastName + " has been deleted.");
             this.setState({
                 id: '',
@@ -70,9 +70,10 @@ class Main extends Component {
             firstName: firstName,
             lastName: lastName,
             number: number
-        }).then(res => {
+        }).then(() => {
             alert("Judge " + firstName + " " + lastName + " has been added.");
-        })
+        });
+        window.location.reload();
     }
 
     updateJudge(id, firstName, lastName, number) {
@@ -80,16 +81,10 @@ class Main extends Component {
             firstName: firstName,
             lastName: lastName,
             number: number
-        }).then(res => {
+        }).then(() => {
             alert("Judge " + firstName + " " + lastName + " has been updated.");
-        })
-    }
-
-    grabState() {
-        console.log("ID: " + this.state.id);
-        console.log("First Name: " + this.state.firstName);
-        console.log("Last Name: " + this.state.lastName);
-        console.log("Number: " + this.state.number);
+        });
+        window.location.reload();
     }
 
     render() {
@@ -128,9 +123,6 @@ class Main extends Component {
                             <div className="col-sm-2">
                                 <button className="btn btn-primary" onClick={() => this.getJudge(this.state.idToGrab)}>Get Judge Details</button>
                             </div>
-                            {/*<div className="col-sm-2">*/}
-                                {/*<button className="btn btn-primary" onClick={() => this.grabState()}>Grab State</button>*/}
-                            {/*</div>*/}
                         </div>
 
                         <br/><br/><br/><br/>
