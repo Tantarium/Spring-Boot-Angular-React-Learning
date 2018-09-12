@@ -128,7 +128,8 @@ class Main extends Component {
                                     addJudgeHidden: false,
                                     getJudgesButtonHidden: true,
                                     judgeDetailsHidden: false
-                                })}>
+                                })}
+                            >
                                 Add New Judge
                             </button>
                         </div>
@@ -163,7 +164,16 @@ class Main extends Component {
                             })}
                         </div>
                         <div className="col-sm-2">
-                            <button className="btn btn-success">Add New Judge</button>
+                            <button
+                                className="btn btn-success"
+                                onClick={() => this.setState({
+                                    addJudgeHidden: false,
+                                    getJudgesButtonHidden: true,
+                                    judgeDetailsHidden: false
+                                })}
+                            >
+                                Add New Judge
+                            </button>
                         </div>
                     </div>
 
