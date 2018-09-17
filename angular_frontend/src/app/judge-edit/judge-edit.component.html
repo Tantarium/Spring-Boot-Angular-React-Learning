@@ -1,0 +1,15 @@
+<form #judgeForm="ngForm" (ngSubmit)="save(judgeForm.value)">
+  <h2>{{judge.id ? 'Edit' : 'Add'}}</h2>
+  <b *ngIf="judge.id">ID: </b>
+  <input *ngIf="judge.id" placeholder="ID" [(ngModel)]="judge.id" required name="id" #id><br *ngIf="judge.id" />
+  <b>First Name: </b>
+  <input placeholder="First Name" [(ngModel)]="judge.firstName" required name="firstName" #firstName><br/>
+  <b>Last Name: </b>
+  <input placeholder="Last Name" [(ngModel)]="judge.lastName" required name="lastName" #lastName><br/>
+  <b>Judge Number: </b>
+  <input placeholder="Judge Number" [(ngModel)]="judge.number" required name="number" #number><br/>
+
+  <button type="submit">Save</button>
+  <button (click)="remove(judge.id)" *ngIf="judge.id" type="button">Delete</button>
+  <a routerLink="/judge-list">Cancel</a>
+</form>
