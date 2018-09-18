@@ -1,15 +1,19 @@
 <form #judgeForm="ngForm" (ngSubmit)="save(judgeForm.value)">
-  <h2>{{judge.id ? 'Edit' : 'Add'}}</h2>
-  <b *ngIf="judge.id">ID: </b>
-  <input *ngIf="judge.id" placeholder="ID" [(ngModel)]="judge.id" required name="id" #id><br *ngIf="judge.id" />
-  <b>First Name: </b>
-  <input placeholder="First Name" [(ngModel)]="judge.firstName" required name="firstName" #firstName><br/>
-  <b>Last Name: </b>
-  <input placeholder="Last Name" [(ngModel)]="judge.lastName" required name="lastName" #lastName><br/>
-  <b>Judge Number: </b>
-  <input placeholder="Judge Number" [(ngModel)]="judge.number" required name="number" #number><br/>
+  <h2>{{judge.id ? 'Edit' : 'Add'}} Judge</h2>
 
-  <button type="submit">Save</button>
-  <button (click)="remove(judge.id)" *ngIf="judge.id" type="button">Delete</button>
-  <a routerLink="/judge-list">Cancel</a>
+  <b *ngIf="judge.id">ID: </b>
+  <input class="form-control" *ngIf="judge.id" placeholder="ID" [(ngModel)]="judge.id" required readonly name="id" #id><br *ngIf="judge.id" />
+
+  <b>First Name: </b>
+  <input class="form-control" placeholder="First Name" [(ngModel)]="judge.firstName" required name="firstName" #firstName><br/>
+
+  <b>Last Name: </b>
+  <input class="form-control" placeholder="Last Name" [(ngModel)]="judge.lastName" required name="lastName" #lastName><br/>
+
+  <b>Judge Number: </b>
+  <input class="form-control" placeholder="Judge Number" [(ngModel)]="judge.number" required name="number" #number><br/>
+
+  <button class="btn btn-success" type="submit">Save</button>
+  <button class="btn btn-danger" (click)="remove(judge.id)" *ngIf="judge.id" type="button">Delete</button>
+  <button class="btn btn-warning" [routerLink]="['/judge-list']">Cancel</button>
 </form>

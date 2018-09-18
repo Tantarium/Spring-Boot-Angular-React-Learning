@@ -1,8 +1,10 @@
-<h2>Judge List</h2>
 
-<div *ngFor="let judge of judges">
+<div class="col-sm-2 offset-sm-4" *ngFor="let judge of judges">
   <a [routerLink]="['/judge-edit', judge.id]">{{judge.firstName}} {{judge.lastName}}</a>
-  <br/><br/>
 </div>
 
-<button [routerLink]="['/judge-add']">Add</button>
+<br/>
+
+<div class="col-sm-2 offset-sm-4">
+  <button class="btn btn-success" [routerLink]="['/judge-add']">Add</button>
+</div>

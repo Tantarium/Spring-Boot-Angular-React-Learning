@@ -25,9 +25,6 @@ export class JudgeEditComponent implements OnInit {
         this.judgeService.get(id).subscribe((judge: any) => {
           if (judge) {
             this.judge = judge;
-            console.log(judge);
-            // console.log(judge._links);
-            // this.judge.href = judge._links.self.href;
           } else {
             console.log(`Judge with id '${id}' not found, returning to list`);
             this.gotoList();
