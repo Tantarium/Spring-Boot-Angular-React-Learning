@@ -19,10 +19,8 @@ export class JudgeService {
 
   save(judge: any): Observable<any> {
     let result: Observable<Object>;
-    if (judge['href']) {
-      console.log(judge['href']);
-      console.log(judge);
-      result = this.http.put(judge.href, judge);
+    if (judge.id !== undefined) {
+      result = this.http.put(this.JUDGE_API + '/' + judge.id, judge);
     } else {
       result = this.http.post(this.JUDGE_API, judge);
     }
