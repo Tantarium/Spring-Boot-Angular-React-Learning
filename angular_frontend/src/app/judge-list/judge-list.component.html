@@ -1,10 +1,21 @@
+<div class="row justify-content-sm-center">
+  <h1>Judge List</h1>
+</div>
 
-<div class="col-sm-2 offset-sm-4" *ngFor="let judge of judges">
-  <a [routerLink]="['/judge-edit', judge.id]">{{judge.firstName}} {{judge.lastName}}</a>
+<div class="row justify-content-sm-center">
+  <div class="col-sm-2">
+    <div *ngFor="let judge of judges">
+      <a [routerLink]="['/judge-edit', judge.id]">{{judge.firstName}} {{judge.lastName}}</a>
+    </div>
+  </div>
 </div>
 
 <br/>
 
-<div class="col-sm-2 offset-sm-4">
-  <button class="btn btn-success" [routerLink]="['/judge-add']">Add</button>
+<div class="row justify-content-sm-center">
+  <div class="col-sm-2">
+    <button class="btn btn-success" [routerLink]="['/judge-add']">
+      Add
+    </button>
+  </div>
 </div>
