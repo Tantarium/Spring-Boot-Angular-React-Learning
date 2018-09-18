@@ -1,6 +1,7 @@
 package lp3.show_program;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,24 @@ public class JudgeController {
         if (!judge.isPresent()) throw new JudgeNotFoundException("id - " + id);
 
         return judge.get();
+    }
+
+    @GetMapping("/judges/search")
+    public List<Judge> judgeSearch(String searchTerm) {
+        List<Judge> judges = new ArrayList<>();
+        List<Judge> allJudges = judgeRepository.findAll();
+
+        for (Judge j : allJudges) {
+            if (j.getFirstName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                judges.add(j);
+            } else if (j.getLastName().toLowerCase().contains(searchTerm.toLowerCase())) {
+                judges.add(j);
+            } else if (Integer.toString(j.getNumber()).contains(searchTerm)) {
+                judges.add(j);
+            }
+        }
+
+        return judges;
     }
 
     @DeleteMapping("/judges/{id}")
