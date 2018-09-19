@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
 })
 export class JudgeSearchComponent implements OnInit {
   judges: any;
-  searchTerm: any = {};
+  searchTerm: any;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -19,7 +19,11 @@ export class JudgeSearchComponent implements OnInit {
   ngOnInit() { }
 
   search(form: NgForm) {
-    this.judgeService.search(form.searchTerm).subscribe(result => {
+    let searchText;
+    for (let key in form) {
+      searchText = form[key]
+    }
+    this.judgeService.search(searchText).subscribe(result => {
       this.judges = result;
     })
   }
