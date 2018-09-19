@@ -33,6 +33,7 @@ public class JudgeController {
     }
 
     @GetMapping("/judges/search")
+    @CrossOrigin(origins = "*")
     public List<Judge> judgeSearch(String searchTerm) {
         List<Judge> judges = new ArrayList<>();
         List<Judge> allJudges = judgeRepository.findAll();

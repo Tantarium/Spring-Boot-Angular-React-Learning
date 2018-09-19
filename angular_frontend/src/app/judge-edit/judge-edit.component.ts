@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JudgeService } from "../shared/judge/judge.service";
@@ -32,10 +32,6 @@ export class JudgeEditComponent implements OnInit {
         })
       }
     })
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 
   gotoList() {

@@ -1,0 +1,50 @@
+<form #searchForm="ngForm" (ngSubmit)="search(searchForm.value)">
+  <div class="row justify-content-sm-center">
+    <h1>Search for a Judge</h1>
+  </div>
+
+  <div class="container">
+    <div class="form-group row">
+      <label for="searchTerm" class="col-sm-2 col-form-label">
+        <b>Enter Search Term</b>
+      </label>
+      <div class="col-sm-10">
+        <input
+          id="searchTerm"
+          class="form-control"
+          placeholder="Search"
+          [ngModel]="searchTerm.text"
+          name="searchTerm"
+          required
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-sm-center">
+    <button class="btn btn-primary" type="submit">
+      Search
+    </button>
+    <button class="btn btn-warning" [routerLink]="['/judge-list']">
+      Cancel
+    </button>
+  </div>
+</form>
+
+<br/><br/>
+
+<div class="row justify-content-sm-center" *ngIf="judges">
+  <div class="col-sm-3">
+    <h3>Search Results</h3>
+  </div>
+</div>
+
+<div class="row justify-content-sm-center">
+  <div class="col-sm-2">
+    <div *ngFor="let judge of judges; let i = index;">
+      <a [routerLink]="['/judge-edit', judge.id]">
+        {{i + 1}} - {{judge.firstName}} {{judge.lastName}}
+      </a>
+    </div>
+  </div>
+</div>

@@ -31,4 +31,8 @@ export class JudgeService {
     return this.http.delete(this.JUDGE_API + '/' + href);
   }
 
+  search(searchTerm: string) {
+    return this.http.get(this.JUDGE_API + '/search?searchTerm=' + searchTerm);
+  }
+
 }

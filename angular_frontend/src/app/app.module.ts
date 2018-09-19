@@ -7,9 +7,14 @@ import { JudgeListComponent } from './judge-list/judge-list.component';
 import { JudgeEditComponent } from './judge-edit/judge-edit.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { JudgeSearchComponent } from './judge-search/judge-search.component';
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/judge-list', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/judge-list',
+    pathMatch: 'full'
+  },
   {
     path: 'judge-list',
     component: JudgeListComponent
@@ -21,6 +26,10 @@ const appRoutes: Routes = [
   {
     path: 'judge-edit/:id',
     component: JudgeEditComponent
+  },
+  {
+    path: 'judge-search',
+    component: JudgeSearchComponent
   }
 ];
 
@@ -28,7 +37,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     JudgeListComponent,
-    JudgeEditComponent
+    JudgeEditComponent,
+    JudgeSearchComponent
   ],
   imports: [
     BrowserModule,
