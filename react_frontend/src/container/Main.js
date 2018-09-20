@@ -16,11 +16,14 @@ class Main extends Component {
             newLastName: '',
             newNumber: '',
             idToGrab: '',
+            searchTerm: '',
             enterJudgeIdHidden: true,
-            getJudgesButtonHidden: false,
+            initialButtonsHidden: false,
             judgeListHidden: true,
             judgeDetailsHidden: true,
-            addJudgeHidden: true
+            addJudgeHidden: true,
+            cancelButtonHidden: true,
+            searchHidden: true
         };
 
         this.getJudges = this.getJudges.bind(this);
@@ -31,21 +34,28 @@ class Main extends Component {
     }
 
     getJudges = () => {
-        let table = '';
+        let response = '';
         axios.get("http://localhost:8080/judges").then(res => {
             for (let i = 0; i < res.data.length; i++) {
                 if (i === res.data.length - 1) {
-                    table = table + res.data[i].firstName + " " + res.data[i].lastName + " --- (" + res.data[i].id + ")";
+                    response = response +
+                        res.data[i].firstName + " " +
+                        res.data[i].lastName +
+                        " --- (" + res.data[i].id + ")";
                 } else {
-                    table = table + res.data[i].firstName + " " + res.data[i].lastName + " --- (" + res.data[i].id + ")\\n";
+                    response = response +
+                        res.data[i].firstName + " " +
+                        res.data[i].lastName +
+                        " --- (" + res.data[i].id + ")\\n";
                 }
             }
 
             this.setState({
-                judgeJson: table,
+                judgeJson: response,
                 enterJudgeIdHidden: false,
                 judgeListHidden: false,
-                getJudgesButtonHidden: true
+                initialButtonsHidden: true,
+                cancelButtonHidden: false
             });
 
         }, err => {
@@ -62,9 +72,10 @@ class Main extends Component {
                 lastName: res.data.lastName,
                 number: res.data.number,
                 enterJudgeIdHidden: true,
-                getJudgesButtonHidden: true,
+                initialButtonsHidden: true,
                 judgeListHidden: true,
-                judgeDetailsHidden: false
+                judgeDetailsHidden: false,
+                cancelButtonHidden: false
             })
         }, err => {
             console.log(err);
@@ -106,31 +117,103 @@ class Main extends Component {
         window.location.reload();
     }
 
+    cancel() {
+        window.location.reload();
+    }
+
+    search(searchTerm) {
+        let response = '';
+        axios.get("http://localhost:8080/judges/search?searchTerm=" + searchTerm).then(res => {
+            for (let i = 0; i < res.data.length; i++) {
+                if (i === res.data.length - 1) {
+                    response = response +
+                        res.data[i].firstName + " " +
+                        res.data[i].lastName +
+                        " --- (" + res.data[i].id + ")";
+                } else {
+                    response = response +
+                        res.data[i].firstName + " " +
+                        res.data[i].lastName +
+                        " --- (" + res.data[i].id + ")\\n";
+                }
+            }
+
+            this.setState({
+                judgeJson: response,
+                enterJudgeIdHidden: false,
+                judgeListHidden: false,
+                initialButtonsHidden: true,
+                searchHidden: true
+            });
+        }, err => {
+            console.log("Error: " + err);
+        });
+    }
+
     render() {
         return (
             <div className="Main">
                 <header className="App-header">
+                    <br/>
                     <h1 className="App-title">Judge Actions</h1>
                 </header>
                 <div className="App-intro">
                     <br/>
-
                     <div className="row justify-content-center">
-                        <div className="col-sm-2" hidden={this.state.getJudgesButtonHidden}>
+                        <div className="col-sm-2" hidden={this.state.initialButtonsHidden}>
                             <button className="btn btn-primary" onClick={() => this.getJudges()}>
                                 Get Judges
                             </button>
                         </div>
-                        <div className="col-sm-2" hidden={this.state.getJudgesButtonHidden}>
+                        <div className="col-sm-2" hidden={this.state.initialButtonsHidden}>
                             <button
                                 className="btn btn-success"
                                 onClick={() => this.setState({
                                     addJudgeHidden: false,
-                                    getJudgesButtonHidden: true,
-                                    judgeDetailsHidden: false
+                                    initialButtonsHidden: true,
+                                    judgeDetailsHidden: false,
+                                    cancelButtonHidden: false
                                 })}
                             >
                                 Add New Judge
+                            </button>
+                        </div>
+                        <div className="col-sm-2" hidden={this.state.initialButtonsHidden}>
+                            <button
+                                className="btn btn-info"
+                                onClick={() => {
+                                    this.setState({
+                                        searchHidden: false,
+                                        initialButtonsHidden: true,
+                                        cancelButtonHidden: false
+                                    })
+                                }}
+                            >
+                                Search For Judge
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="form-inline justify-content-center" hidden={this.state.searchHidden}>
+                        <div className="col-sm-2">
+                            <label><b>Enter Search Term</b></label>
+                        </div>
+                        <div className="col-sm-2">
+                            <input
+                                className="form-control"
+                                onChange={(evt) => {
+                                    this.setState({searchTerm: evt.target.value})
+                                }}
+                            />
+                        </div>
+                        <div className="col-sm-2 offset-sm-1">
+                            <button
+                                className="btn btn-info"
+                                onClick={() => {
+                                    this.search(this.state.searchTerm)
+                                }}
+                            >
+                                Search
                             </button>
                         </div>
                     </div>
@@ -146,7 +229,10 @@ class Main extends Component {
                             />
                         </div>
                         <div className="col-sm-2 offset-sm-1">
-                            <button className="btn btn-primary" onClick={() => this.getJudge(this.state.idToGrab)}>
+                            <button
+                                className="btn btn-primary"
+                                onClick={() => this.getJudge(this.state.idToGrab)}
+                            >
                                 Get Judge Details
                             </button>
                         </div>
@@ -168,8 +254,11 @@ class Main extends Component {
                                 className="btn btn-success"
                                 onClick={() => this.setState({
                                     addJudgeHidden: false,
-                                    getJudgesButtonHidden: true,
-                                    judgeDetailsHidden: false
+                                    initialButtonsHidden: true,
+                                    judgeDetailsHidden: false,
+                                    judgeListHidden: true,
+                                    enterJudgeIdHidden: true,
+                                    cancelButtonHidden: false
                                 })}
                             >
                                 Add New Judge
@@ -276,6 +365,15 @@ class Main extends Component {
                         </div>
                     </div>
 
+                    <br/><br/>
+
+                    <button
+                        className="btn btn-warning"
+                        hidden={this.state.cancelButtonHidden}
+                        onClick={() => this.cancel()}
+                    >
+                        Cancel
+                    </button>
                 </div>
             </div>
         );
