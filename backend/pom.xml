@@ -77,11 +77,10 @@
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>2.27</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>lp3</groupId>-->
-            <!--<artifactId>show_program_frontend</artifactId>-->
-            <!--<version>0.0.1-SNAPSHOT</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
