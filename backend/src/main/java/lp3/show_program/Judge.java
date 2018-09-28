@@ -12,15 +12,6 @@ public class Judge {
     private String lastName;
     private int number;
 
-    public Judge() {}
-
-    public Judge(long id, String firstName, String lastName, int number) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.number = number;
-    }
-
     public long getId() {
         return id;
     }
